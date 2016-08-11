@@ -7,8 +7,8 @@
     },
     computed: {
       password() {
-        return this.keysentence + this.salt;
+        return sha256(this.keysentence + this.salt);
       }
     }
-  })
+  });
 })();
