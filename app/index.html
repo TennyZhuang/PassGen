@@ -38,6 +38,21 @@
         <label for="len">len</label>
         <input id="len" type="number" v-model="len" step="1" min="4" max="16">
 
+        <label for="upper" class="pure-checkbox">
+          <input id="upper" v-model="upper" type="checkbox">
+          UpperCase
+        </label>
+
+        <label for="lower" class="pure-checkbox">
+          <input id="lower" v-model="lower" type="checkbox">
+          LowerCase
+        </label>
+
+        <label for="number" class="pure-checkbox">
+          <input id="number" v-model="number" type="checkbox">
+          Number
+        </label>
+
         <label for="password">password</label>
         <input id="password" type="text" v-model="password" placeholder="password" readonly>
       </fieldset>

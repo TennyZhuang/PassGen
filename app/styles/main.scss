@@ -14,7 +14,7 @@ body {
   margin: 0 auto;
   max-width: $break-mobile;
 
-  label, input {
+  label, input[type=text], input[type=password] {
     width: 80%;
   }
 }
