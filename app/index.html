@@ -30,13 +30,13 @@
         <legend>Pass Generator</legend>
 
         <label for="keysentence">keysentence</label>
-        <input id="keysentence" type="password" placeholder="keysentence">
+        <input id="keysentence" type="password" v-model="keysentence" placeholder="keysentence">
 
         <label for="salt">salt</label>
-        <input id="salt" type="text" placeholder="salt">
+        <input id="salt" type="text" v-model="salt" placeholder="salt">
 
         <label for="password">password</label>
-        <input id="password" type="text" placeholder="password" readonly>
+        <input id="password" type="text" v-model="password" placeholder="password" readonly>
       </fieldset>
     </form>
 
