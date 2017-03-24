@@ -4,6 +4,7 @@ const gulpLoadPlugins = require('gulp-load-plugins');
 const browserSync = require('browser-sync');
 const del = require('del');
 const wiredep = require('wiredep').stream;
+const manifest = require('gulp-manifest');
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -164,7 +165,19 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('cache', ['html', 'images', 'fonts', 'extras'], () => {
+  gulp.src(['dist/**/*'], {base: 'dist/'})
+    .pipe(manifest({
+      hash: true,
+      preferOnline: true,
+      network: ['*'],
+      filename: 'manifest.webapp',
+      exclude: 'manifest.webapp',
+    }))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('build', ['lint', 'cache'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
