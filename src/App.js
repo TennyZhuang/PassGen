@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Checkbox, InputNumber } from 'antd';
+import { Input, Checkbox, InputNumber, Icon } from 'antd';
 import './App.css';
 import 'antd/lib/checkbox/style/css';
 import 'antd/lib/input/style/css';
@@ -22,6 +22,7 @@ class App extends Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.copyPassword = this.copyPassword.bind(this);
   }
 
   handleChange(event) {
@@ -79,10 +80,17 @@ class App extends Component {
     this.setState(updateObj);
   }
 
+  copyPassword() {
+    document.querySelector('input[name="password"]').select();
+    document.execCommand("copy");
+  }
+
   render() {
+    const copyIcon = <a onClick={this.copyPassword}><Icon type="copy" /></a>;
+
     return (
       <div className="App">
-        <div class="app-title">
+        <div className="app-title">
           <h2>Password Generator</h2>
           <hr />
         </div>
@@ -99,7 +107,7 @@ class App extends Component {
           name="charset" 
           value={this.state.charset} 
           onChange={value => this.handleChange({ target: { name: 'charset', value }})} />
-        <Input disabled placeholder="password" value={this.state.password} />
+        <Input placeholder="password" name="password" value={this.state.password} addonAfter={copyIcon} />
       </div>
     );
   }
