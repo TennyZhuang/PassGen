@@ -72,7 +72,7 @@ class App extends Component {
     }
 
     const pass64 = sha256(keysentence + salt);
-    const proportion = parseInt(64 / len);
+    const proportion = parseInt(64 / len, 10);
     const codes = Array.from(pass64).map(c => parseInt(c, 16)).slice(0, len * proportion);
     const pass = _.chunk(codes, proportion)
                   .map(a => (a.map((e, idx) => Math.pow(16, idx) * e).reduce((x, y) => x + y)))
