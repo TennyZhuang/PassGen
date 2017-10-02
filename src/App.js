@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Input, Checkbox, InputNumber, Icon } from 'antd';
+import { Input, Checkbox, InputNumber, Icon, Form } from 'antd';
 import './App.css';
 import 'antd/lib/checkbox/style/css';
+import 'antd/lib/form/style/css';
 import 'antd/lib/input/style/css';
 import 'antd/lib/input-number/style/css';
 import { sha256 } from 'js-sha256';
 import _ from 'lodash';
 
 const CheckboxGroup = Checkbox.Group;
+const FormItem = Form.Item;
 
 const PLAIN_CHARSET_OPTIONS = ['lower', 'upper', 'digit'];
 
@@ -86,8 +88,6 @@ class App extends Component {
   }
 
   render() {
-    const copyIcon = <a onClick={this.copyPassword}><Icon type="copy" /></a>;
-
     return (
       <div className="App">
         <div className="app-title">
@@ -95,19 +95,41 @@ class App extends Component {
           <hr />
         </div>
 
-        <Input placeholder="keysentence" name="keysentence" type="password" value={this.state.keysentence} onChange={this.handleChange} />
-        <Input placeholder="salt" name="salt" value={this.state.salt} onChange={this.handleChange} />
-        <InputNumber 
-          min={6} 
-          max={32} 
-          value={this.state.len} 
-          onChange={value => this.handleChange({ target: { name: 'len', value }})} />
-        <CheckboxGroup 
-          options={PLAIN_CHARSET_OPTIONS} 
-          name="charset" 
-          value={this.state.charset} 
-          onChange={value => this.handleChange({ target: { name: 'charset', value }})} />
-        <Input placeholder="password" name="password" value={this.state.password} addonAfter={copyIcon} />
+        <Form layout="vertical">
+          <FormItem label="keysentence">
+            <Input
+              placeholder="keysentence"
+              name="keysentence"
+              type="password"
+              value={this.state.keysentence}
+              onChange={this.handleChange} />
+          </FormItem>
+          <FormItem label="salt">
+            <Input placeholder="salt" name="salt" value={this.state.salt} onChange={this.handleChange} />
+          </FormItem>
+          <FormItem label="len">
+            <InputNumber
+              min={6}
+              max={32}
+              value={this.state.len}
+              onChange={value => this.handleChange({ target: { name: 'len', value }})} />
+          </FormItem>
+          <FormItem label="charset">
+            <CheckboxGroup
+              options={PLAIN_CHARSET_OPTIONS}
+              name="charset"
+              value={this.state.charset}
+              onChange={value => this.handleChange({ target: { name: 'charset', value }})} />
+          </FormItem>
+          <FormItem label="password">
+            <Input
+              readOnly
+              placeholder="password"
+              name="password"
+              value={this.state.password}
+              addonAfter={<a onClick={this.copyPassword}><Icon type="copy" /></a>} />
+          </FormItem>
+        </Form>
       </div>
     );
   }

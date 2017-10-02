@@ -2,14 +2,8 @@
   max-width: 400px;
   padding: 0 25px;
   margin: 100px auto;
-  /* text-align: center; */
 }
 
 .app-title {
-  margin-bottom: 8px;
-}
-
-.ant-input {
-  width: 200px;
-  margin: 0 0 8px 0;
+  margin-bottom: 16px;
 }
