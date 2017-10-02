@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Input, Checkbox, InputNumber, Icon, Form } from 'antd';
+import { Input, Checkbox, InputNumber, Icon, Form, Popconfirm } from 'antd';
 import './App.css';
 import 'antd/lib/checkbox/style/css';
 import 'antd/lib/form/style/css';
 import 'antd/lib/input/style/css';
 import 'antd/lib/input-number/style/css';
+import 'antd/lib/popconfirm/style/css';
 import { sha256 } from 'js-sha256';
 import _ from 'lodash';
 
@@ -17,11 +18,12 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      keysentence: '',
+      keysentence: localStorage.getItem('keysentence') || '',
       salt: '',
       len: 16,
       charset: PLAIN_CHARSET_OPTIONS,
       password: '',
+      _confirmVisiable: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.copyPassword = this.copyPassword.bind(this);
@@ -87,9 +89,22 @@ class App extends Component {
     document.execCommand("copy");
   }
 
+  saveKeysentence() {
+    localStorage.setItem('keysentence', this.state.keysentence);
+  }
+
   render() {
     return (
       <div className="App">
+        <Popconfirm
+          title="Are you sure to save keysentence on this browser?"
+          visible={this.state._confirmVisiable}
+          onConfirm={() => {
+            this.saveKeysentence();
+            this.setState({ _confirmVisiable: false });
+          }}
+          onCancel={() => this.setState({ _confirmVisiable: false })}/>
+
         <div className="app-title">
           <h2>Password Generator</h2>
           <hr />
@@ -102,7 +117,8 @@ class App extends Component {
               name="keysentence"
               type="password"
               value={this.state.keysentence}
-              onChange={this.handleChange} />
+              onChange={this.handleChange}
+              addonAfter={<a onClick={() => this.setState({ _confirmVisiable: true })}><Icon type="save" /></a>} />
           </FormItem>
           <FormItem label="salt">
             <Input placeholder="salt" name="salt" value={this.state.salt} onChange={this.handleChange} />
