@@ -34,12 +34,12 @@ class App extends Component {
     let { keysentence, salt, charset, len } = this.state;
     switch (event.target.name) {
       case 'keysentence':
-      keysentence = event.target.value;
+      keysentence = event.target.value.trim();
       updateObj.keysentence = keysentence;
       break;
 
       case 'salt':
-      salt = event.target.value;
+      salt = event.target.value.trim();
       updateObj.salt = salt;
       break;
 
